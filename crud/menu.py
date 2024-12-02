@@ -30,18 +30,15 @@ while True:
             print("Não há produtos cadastrados!")
         else:
             for id, produto in produtos.items():
-                print(f"ID: {id} | Produto: {produto['nome']} | Preço: R${produto['preco']:.2f} | "
-                      f"Quantidade: {produto['quantidade']} | Data: {produto['data']} | "
-                      f"Funcionário: {produto['funcionario']}")
+                print(f"ID: {id} | Produto: {produto['nome']} | Preço: R${produto['preco']:.2f} | Quantidade: {produto['quantidade']} | Data: {produto['data']} | Funcionário: {produto['funcionario']}")
         print("\n")
 
     elif opcao == 3:  # Atualizar
         id_att = int(input("Informe o ID do produto que deseja atualizar: "))
         if id_att in armazenamento.produtos:
             print("Escolha o campo que deseja atualizar:")
-            print("[1] Nome")
-            print("[2] Preço")
-            print("[3] Quantidade")
+            print("[1]- Nome\n[2]- Preço\n[3]- Quantidade\n")
+
             escolha = input("Digite o número correspondente: ")
 
             if escolha == "1":
@@ -78,15 +75,23 @@ while True:
             id_produto_venda = int(input("Informe o ID do produto vendido: "))
             if id_produto_venda in armazenamento.produtos:
                 quantidade_vendida = int(input("Informe a quantidade vendida: "))
-                armazenamento.itens_vendidos.append({
-                    "id_produto": id_produto_venda,
-                    "nome_produto": armazenamento.produtos[id_produto_venda]["nome"],
-                    "quantidade": quantidade_vendida,
-                    "valor": quantidade_vendida * armazenamento.produtos[id_produto_venda]["preco"]
-                })
-                continuar = input("Deseja adicionar mais itens? (s/n): ").lower()
-                if continuar == "n":
-                    break
+                produto = armazenamento.produtos[id_produto_venda]
+
+                if produto["quantidade"] >= quantidade_vendida:
+                    armazenamento.itens_vendidos.append({
+                        "id_produto": id_produto_venda,
+                        "nome_produto": produto["nome"],
+                        "quantidade": quantidade_vendida,
+                        "valor": quantidade_vendida * produto["preco"]
+                    })
+
+                    produto["quantidade"] -= quantidade_vendida
+
+                    continuar = input("Deseja adicionar mais itens? (s/n): ").lower()
+                    if continuar == "n":
+                        break
+                else:
+                    print(f"Quantidade insuficiente de {produto['nome']} no estoque!")
             else:
                 print("Erro: Produto não encontrado!")
 
@@ -100,9 +105,11 @@ while True:
             "itens": armazenamento.itens_vendidos,
             "total": total_venda
         }
+
         funcionalidades.registrar_venda(venda)
         print("Venda registrada com sucesso!")
         limpar_tela()
+
 
     elif opcao == 6:  # Listar vendas
         vendas = funcionalidades.listar_vendas()
