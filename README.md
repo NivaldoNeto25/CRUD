@@ -3,11 +3,17 @@ Um sistema simples para cadastrar, listar, atualizar e gerenciar produtos em est
 
 # Funcionalidades
 1- Cadastro de produtos: Adicione produtos ao estoque com nome, preço, quantidade e responsável pelo cadastro.
+
 2- Listagem de produtos: Exiba todos os produtos cadastrados com detalhes.
+
 3- Atualização de produtos: Atualize informações como nome, preço ou quantidade de um produto.
+
 4- Deleção de produtos: Remova produtos do estoque.
+
 5- Registro de vendas: Registre vendas informando os produtos vendidos, suas quantidades e o vendedor responsável.
+
 6- Histórico de vendas: Consulte as vendas realizadas com todos os detalhes.
+
 7- Reabastecimento de estoque: Adicione mais unidades de produtos existentes no estoque.
 
 # Estrutura do Projeto
